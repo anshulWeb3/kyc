@@ -1,26 +1,58 @@
 syntax = "proto3";
+
 package kyc.kyc;
 
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "kyc/kyc/params.proto";
+import "kyc/kyc/kyc.proto";
 
 option go_package = "kyc/x/kyc/types";
 
 // Query defines the gRPC querier service.
 service Query {
+  
   // Parameters queries the parameters of the module.
-  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
+  rpc Params (QueryParamsRequest) returns (QueryParamsResponse) {
     option (google.api.http).get = "/kyc/kyc/params";
+  
+  }
+  
+  // Queries a list of Kyc items.
+  rpc Kyc    (QueryGetKycRequest) returns (QueryGetKycResponse) {
+    option (google.api.http).get = "/kyc/kyc/kyc/{address}";
+  
+  }
+  rpc KycAll (QueryAllKycRequest) returns (QueryAllKycResponse) {
+    option (google.api.http).get = "/kyc/kyc/kyc";
+  
   }
 }
-
 // QueryParamsRequest is request type for the Query/Params RPC method.
 message QueryParamsRequest {}
 
 // QueryParamsResponse is response type for the Query/Params RPC method.
 message QueryParamsResponse {
+  
   // params holds all the parameters of this module.
   Params params = 1 [(gogoproto.nullable) = false];
 }
+
+message QueryGetKycRequest {
+  string address = 1;
+}
+
+message QueryGetKycResponse {
+  Kyc kyc = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllKycRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllKycResponse {
+  repeated Kyc                                    kyc        = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+

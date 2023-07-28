@@ -1,0 +1,11 @@
+syntax = "proto3";
+package kyc.kyc;
+
+option go_package = "kyc/x/kyc/types";
+
+message Kyc {
+  string address = 1; 
+  bool value = 2; 
+  string creator = 3;
+}
+
