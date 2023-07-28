@@ -1,0 +1,12 @@
+syntax = "proto3";
+package kyc.kyc;
+
+import "gogoproto/gogo.proto";
+import "kyc/kyc/params.proto";
+
+option go_package = "kyc/x/kyc/types";
+
+// GenesisState defines the kyc module's genesis state.
+message GenesisState {
+  Params params = 1 [(gogoproto.nullable) = false];
+}

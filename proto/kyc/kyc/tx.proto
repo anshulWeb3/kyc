@@ -1,0 +1,7 @@
+syntax = "proto3";
+package kyc.kyc;
+
+option go_package = "kyc/x/kyc/types";
+
+// Msg defines the Msg service.
+service Msg {}
